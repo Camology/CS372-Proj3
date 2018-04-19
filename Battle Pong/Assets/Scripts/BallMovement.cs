@@ -24,9 +24,12 @@ public class BallMovement : MonoBehaviour {
 	}
 	void OnTriggerEnter (Collider c) {
 		ScoreKeeping ();
-		if (c.gameObject.name == "GoalP1" || c.gameObject.name == "GoalP2") {
-			Destroy (gameObject);
+		for (int i=1; i < 9; i++) {
+			if (c.gameObject.name == "GoalP"+i)  {
+				Destroy (gameObject);
+			}
 		}
+
 	}
 
 	void OnCollisionEnter (Collision c) {

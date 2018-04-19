@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Battle Pong/Assets/Scripts/CountDown.cs.meta
 guid: 637d41c504fa17c4b840e37fbb5e69fa
 timeCreated: 1524118907
+=======
+guid: d0360bd74c392484eb1701aa69fddde2
+timeCreated: 1524131297
+>>>>>>> 7603d4437229349a0e1eda42462bf1f5ea60882e:Battle Pong/Assets/Scripts/CountDown.cs.meta
 licenseType: Free
 MonoImporter:
   externalObjects: {}
