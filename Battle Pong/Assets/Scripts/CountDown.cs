@@ -11,7 +11,7 @@ public class CountDown : MonoBehaviour {
 	}
 
 	void ResumeIn5(){
-			StartCoroutine (Counter (6));
+			StartCoroutine (Counter (1));
 	}
 
 	private IEnumerator Counter(int resumeTime){

@@ -124,9 +124,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 75
-  boundingLine: {fileID: 0}
-  bounds:
-    xMin: -10.5
-    xMax: 10.5
-  zVal: 24
   scoreText: {fileID: 0}
+  usingController: 0

@@ -7,24 +7,34 @@ public class PlayerMovement : MonoBehaviour {
 	public float speed;
 	private Rigidbody rb;
 	private int score;
+	private int winPoints = 10;
 	public Text scoreText;
 	public bool usingController;
 	bool canMove;
+	public GameObject gravField;
+	bool gravUsable;
+	private Vector3 initialPos;
+
 
 	// Use this for initialization
 	void Awake () {
 		rb = GetComponent<Rigidbody> ();
+		initialPos = rb.position;
 		score = 0;
 		setScore (0);
 		canMove = true;
+		gravUsable = true;
 		speed = 55;
 		//set these here just in case someone forgot to do something in the GUI
 		rb.drag = 10;
 		rb.mass = 500;
 		rb.isKinematic = false;
+		scoreText.resizeTextMaxSize = 1;
 	}
 
 	void Update() {
+		if (score > winPoints)
+			WinnerMode ();
 	}
 
 	// Update is called once per frame
@@ -46,20 +56,27 @@ public class PlayerMovement : MonoBehaviour {
 			canMove = false;
 			StartCoroutine(push());
 		}
-	}
-
-
-
-	void OnCollisionEnter(Collision col) {
-		if(col.gameObject.tag == "Wall") {
+		if(Input.GetButtonDown(this.gameObject.name + "Grav") && gravUsable)
+		{
+			gravUsable = false;
+			StartCoroutine(grav());
 		}
 	}
 
-	void OnCollisionExit(Collision col){
-		if (col.gameObject.tag == "Wall") {
-		}
+
+
+	void OnTriggerEnter(Collider col) {
+		if(col.gameObject.tag == "Goal")
+		rb.position += (this.transform.forward * 1);
 	}
 
+	IEnumerator grav()
+	{
+		Instantiate(gravField, initialPos, transform.rotation);
+		yield return new WaitForSeconds(5f);
+		gravUsable = true;
+
+	}
 	IEnumerator push()
 	{
 		int force  = 30000;
@@ -86,5 +103,18 @@ public class PlayerMovement : MonoBehaviour {
 
 	public int getScore() {
 		return score;
+	}
+
+	public void WinnerMode() {
+		Color winColor = Random.ColorHSV (0f, 1f, 1f, 1f, 0.5f, 1f);
+		RectTransform textRect = scoreText.GetComponent<RectTransform> ();
+		GameObject floor = GameObject.Find ("Floor");
+		GetComponent<Renderer>().material.color = winColor;
+		floor.GetComponent<Renderer> ().material.color = winColor;
+		scoreText.color = winColor;
+		scoreText.text = this.gameObject.name + " is winner !!!";
+		//textRect.anchoredPosition = new Vector3 (0,0,0);
+		textRect.anchoredPosition = rb.position;
+		scoreText.fontSize = 100;
 	}
 }
