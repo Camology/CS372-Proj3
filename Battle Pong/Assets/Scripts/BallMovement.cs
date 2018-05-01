@@ -1,23 +1,27 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BallMovement : MonoBehaviour {
     private Rigidbody rb;
+
     private AudioSource audioSource;
     public AudioClip[] audioClip;
+
     private Material trail;
+
     private GameObject lastHitBy = null;
-    public float speed = 10f;
     float timeSinceHit;
+
+    public float speed = 10f;
     private Vector3 movement;
 
     void Start () {
+        timeSinceHit = 0;
+
         rb = GetComponent<Rigidbody> ();
         audioSource = GetComponent<AudioSource> ();
         trail = GetComponent<TrailRenderer> ().material;
-
-        timeSinceHit = 0;
 
         movement = (GameInfo.playerCount == 2) ?
             get2PlayerInitalVelocity () :
@@ -60,7 +64,8 @@ public class BallMovement : MonoBehaviour {
 
         if(c.gameObject.tag == "Goal") {
             onBallInGoal(c.gameObject.name);
-        } else if (c.gameObject.tag == "GravField"){
+        }
+        else if (c.gameObject.tag == "GravField") {
             onBallEnterGravField();
         }
     }
@@ -73,7 +78,6 @@ public class BallMovement : MonoBehaviour {
         Destroy (gameObject);
     }
 
-
     void onBallEnterGravField() {
         movement = rb.velocity;
         rb.velocity *=  0.2f;
@@ -81,8 +85,8 @@ public class BallMovement : MonoBehaviour {
 
     bool didPlayerScore(string playerName) {
         return
-            lastHitBy != null &&
-            playerName != GameInfo.goalMap [lastHitBy.name];
+        lastHitBy != null &&
+        playerName != GameInfo.goalMap [lastHitBy.name];
     }
 
     void ScoreKeeping() {
@@ -106,7 +110,6 @@ public class BallMovement : MonoBehaviour {
 
         rb.velocity = movement;
     }
-
 
     void OnCollisionEnter (Collision c) {
         if (c.gameObject.tag != "Player") {
@@ -132,12 +135,10 @@ public class BallMovement : MonoBehaviour {
         GetComponent<ParticleSystem>().Play();
     }
 
-
     void playSound(int clip) {
         audioSource.clip = audioClip [clip];
         audioSource.Play ();
     }
-
 
     GameObject getLastHitBy() {
         return lastHitBy;
