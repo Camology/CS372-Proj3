@@ -39,7 +39,7 @@ public class CountDown : MonoBehaviour {
 
 	void updateText(int number) {
 		if (number == 0 || number == -1) {
-			text.text = "Start!";
+			text.text = "Go!"; 
 		} else {
 			text.text = number.ToString();
 		}
