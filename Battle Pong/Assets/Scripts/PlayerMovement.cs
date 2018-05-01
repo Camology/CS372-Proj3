@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour {
     private Vector3 initialPos;
 
     private int score;
-    private int winPoints = 2;
+    private int winPoints = 11;
     public Text scoreText;
 
     public AbilityCooldowns abilityBar;
