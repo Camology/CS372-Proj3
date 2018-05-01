@@ -38,10 +38,10 @@ public class CountDown : MonoBehaviour {
 	}
 
 	void updateText(int number) {
-		if (countDownNumber == 0 || countDownNumber == -1) {
+		if (number == 0 || number == -1) {
 			text.text = "Start!";
 		} else {
-			text.text = countDownNumber.ToString();
+			text.text = number.ToString();
 		}
 	}
 }
