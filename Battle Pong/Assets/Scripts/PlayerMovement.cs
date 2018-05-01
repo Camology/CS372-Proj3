@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
         abilityBar = scoreText.GetComponentInChildren<AbilityCooldowns>();
         inputIdentifier = GameInfo.inputMap[gameObject.name];
         audioSource = GetComponent<AudioSource>();
-		
+
         initialPos = rb.position;
         score = 0;
         setScore(0);
@@ -132,27 +132,20 @@ public class PlayerMovement : MonoBehaviour
         GetComponent<Light>().range = 15;
     }
 
-    public void setScore(int val)
-    {
-        if (val < 0)
-            val = 0;
+    public void setScore(int val) {
         score = val;
         scoreText.text = "Score : " + score.ToString();
     }
 
-    public int getScore()
-    {
+    public int getScore() {
         return score;
     }
 
-    public int getWinPoints()
-    {
+    public int getWinPoints() {
         return winPoints;
     }
 
-    public void WinnerMode()
-    {
-
+    public void WinnerMode() {
         Color winColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         RectTransform textRect = scoreText.GetComponent<RectTransform>();
         GameObject floor = GameObject.Find("platform");
@@ -164,6 +157,5 @@ public class PlayerMovement : MonoBehaviour
         textRect.anchoredPosition = rb.position;
         scoreText.fontSize = 100;
         Time.timeScale = 0f;
-
     }
 }
